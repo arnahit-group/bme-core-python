@@ -1,5 +1,6 @@
 from config.base import *
 from core.globals import *
+from config.connection import Connection
 
 
 class Data:
@@ -9,7 +10,10 @@ class Data:
         Globals.models = {}
         if Base.active_connection == "mysql":
             from interface.database.rdbms.mysql.scripts.Database import Database
-            db = Database('bme_db')
+            db = Database(Connection.connections[Base.active_connection][0]['host'],
+                          Connection.connections[Base.active_connection][0]['user'],
+                          Connection.connections[Base.active_connection][0]['password'],
+                          Connection.connections[Base.active_connection][0]['database'])
             datas = db.get_data(table)
             datas = Data.normalize_data(datas)
             Globals.models = datas

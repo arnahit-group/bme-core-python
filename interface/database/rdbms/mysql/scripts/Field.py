@@ -4,20 +4,20 @@ from base.database_types import *
 
 class Field:
     @staticmethod
-    def create_fields_for_install(self, fields):
+    def create_fields_for_install(fields):
         flds = []
         for field in fields:
-            flds.append(Field.create_field(self, field, fields[field]))
+            flds.append(Field.create_field(field, fields[field]))
 
         return ",".join(flds)
 
     @staticmethod
     def generate_appropriate_type(type, database_type='mysql'):
-        return DataBaseTypes.types[mysql][type]
+        return DataBaseTypes.types[database_type][type]
 
     @staticmethod
-    def create_field(self, title, properties):
-        s = title + ""
+    def create_field(title, properties):
+        s = title + " "
 
         if "type" in properties:
             s += Field.generate_appropriate_type(properties["type"])
@@ -27,6 +27,9 @@ class Field:
 
         if "default" in properties:
             s += " DEFAULT " + properties["default"] + " "
+
+        if "comment" in properties:
+            s += " COMMENT \"" + properties["comment"] + "\" "
 
         if "extra" in properties:
             if "ai" in properties['extra']:

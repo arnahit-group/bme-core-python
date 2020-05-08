@@ -3,7 +3,7 @@ class DataBaseTypes:
         "mysql": {
             "int": "INTEGER",
             "str": "VARCHAR(200)",
-            "unsigned int": "UNSIGNED INTEGER",
+            "unsigned int": "int(10) UNSIGNED",
         },
         "mssql": {
             "int": "INTEGER",

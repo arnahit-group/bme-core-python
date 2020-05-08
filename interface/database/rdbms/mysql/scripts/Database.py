@@ -12,17 +12,23 @@ from interface.database.rdbms.mysql.scripts.Table import *
 class Database:
     connection = None
     cursor = None
-    db_nam = None
+    host = None
+    user = None
+    password = None
+    database = None
 
-    def __init__(self, db_name):
-        self.db_name = db_name
+    def __init__(self, host, user, password, database):
+        self.database = database
+        self.host = host
+        self.user = user
+        self.password = password
 
     def open(self):
         self.connection = mysql.connector.connect(
-            host=Connection.connections[Base.active_connection][0]['host'],
-            user=Connection.connections[Base.active_connection][0]['user'],
-            passwd=Connection.connections[Base.active_connection][0]['password'],
-            database=Connection.connections[Base.active_connection][0]['database']
+            host=self.host,
+            user=self.user,
+            passwd=self.password,
+            database=self.database
         )
 
     def close(self):
@@ -110,28 +116,30 @@ class Database:
         models = Models.base.copy()
         for model_name in models:
             try:
-                fn = str.format(Commands.sqls["table.create"], table_name=str(model_name), fields=Field.create_fields_for_install(models[model_name]['main']))
-                self.connection.cursor.execute(fn)
+                fn = str.format(Commands.sqls["table.create"], table_name=str(engine.plural(model_name).lower()), fields=Field.create_fields_for_install(models[model_name]['fields']))
+                print(fn)
+                self.connection.cursor().execute(fn)
 
                 if models[model_name]['has_properties']:
                     template = Templates.tables['properties']
-                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.singular_noun(model_name)),
+                    # print(engine.plural(model_name,1))
+                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name,1).lower()),
                                     fields=",".join(template["fields"]))
-                    self.connection.cursor.execute(fn)
+                    self.connection.cursor().execute(fn)
                     template = Templates.tables['assigned_properties']
-                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.singular_noun(model_name)),
+                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name,1).lower()),
                                     fields=",".join(template["fields"]))
-                    self.connection.cursor.execute(fn)
+                    self.connection.cursor().execute(fn)
 
                 if models[model_name]['has_settings']:
                     template = Templates.tables['settings']
-                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.singular_noun(model_name)),
+                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name,1).lower()),
                                     fields=",".join(template["fields"]))
-                    self.connection.cursor.execute(fn)
+                    self.connection.cursor().execute(fn)
                     template = Templates.tables['assigned_settings']
-                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.singular_noun(model_name)),
+                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name,1).lower()),
                                     fields=",".join(template["fields"]))
-                    self.connection.cursor.execute(fn)
+                    self.connection.cursor().execute(fn)
 
             except NameError as error:
                 print(error)

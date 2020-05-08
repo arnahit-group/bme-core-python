@@ -3,6 +3,7 @@ import json
 import inflect
 import os
 
+
 class Templates:
     tables = {
         "properties": {
