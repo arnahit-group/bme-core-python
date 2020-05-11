@@ -1,3 +1,4 @@
+from interface.database.rdbms.include.Commands import Commands
 from interface.database.rdbms.mysql.scripts.Templates import *
 from base.database_types import *
 import json
@@ -40,7 +41,20 @@ class Field:
 
                 to_comment = {'type': relation['type'] if 'type' in relation else None, 'table': relation['table'] if 'table' in relation else None,
                               'field': relation['field'] if 'field' in relation else None,
-                              'mid_table': relation['mid_table'] if 'mid_table' in relation else None}
+                              'middle_table': relation['middle_table'] if 'middle_table' in relation else None}
+
+                if to_comment['middle_table'] is not None:
+                    md_tb_nm = to_comment['middle_table']
+                    flds = str(md_tb_nm).split('_')
+                    connection = mysql.connector.connect(host="localhost", user="root", passwd="", database="bme_db")
+                    fn = str.format(Commands.sqls["table.create"], table_name=md_tb_nm,
+                                    fields=str.format("id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT , {first} INTEGER UNSIGNED DEFAULT 0, {second} INTEGER UNSIGNED DEFAULT 0",
+                                                      first=flds[0], second=flds[1]))
+                    print(fn)
+                    connection.cursor().execute(fn)
+
+                    # create mid table if not exists
+                    pass
 
                 to_comment2 = {}
                 for k in to_comment:
