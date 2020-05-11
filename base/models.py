@@ -8,7 +8,7 @@ class Models:
     base = {
         "Hotel": {
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "comment": ""},
+                "id": {"type": "unsigned int", "key": True},
                 "title": {"type": "str", "default": "'-'"}
             },
             "has_properties": True,
@@ -16,20 +16,20 @@ class Models:
         },
         "Room": {
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "comment": ""},
+                "id": {"type": "unsigned int", "key": True},
                 "title": {"type": "str", "default": "'-'"},
                 "description": {"type": "str", "default": "'-'"},
                 "content": {"type": "str", "default": "'-'"},
                 "floor": {"type": "int", "default": "1"},
-                "image": {"type": "int", "default": "0", "comment": "{'relation':'hasOne','table':'images'}"},
+                "image": {"type": "int", "default": "0", "relations": [{'type': 'hasOne', 'table': 'images'}]},
                 "images": {"type": "str", "extra": ["null"], "default": "'-'",
-                           "comment": "{'relation':'belongsToMany','table':'images','middle_table':'room_image'}"},
-                "video": {"type": "int", "default": "0", "comment": "{'relation':'hasOne','table':'videos'}"},
-                "flash": {"type": "int", "default": "0", "comment": "{'relation':'hasOne','table':'flashes'}"},
+                           "relations": [{'type': 'belongsToMany', 'table': 'images', 'middle_table': 'room_image'}]},
+                "video": {"type": "int", "default": "0", "relations": [{'type': 'hasOne', 'table': 'videos'}]},
+                "flash": {"type": "int", "default": "0", "relations": [{'type': 'hasOne', 'table': 'flashes'}]},
                 "locked_days": {"type": "str", "default": "'-'"},
                 "inactive_days": {"type": "str", "default": "'-'"},
-                "price": {"type": "str", "extra": ["null"], "default": "'-'", "comment": "{'relation':'hasMany','table':'room_prices','field':'room'}"},
-                "hotel": {"type": "int", "default": "0", "comment": "{'relation':'belongsTo', 'table':'hotels'}"},
+                "price": {"type": "str", "default": "'-'", "relations": [{'type': 'hasMany', 'table': 'room_prices', 'field': 'room'}]},
+                "hotel": {"type": "int", "default": "0", "relations": [{'type': 'belongsTo', 'table': 'hotels'}]},
                 "available": {"type": "int", "default": "1"}
             },
             "has_properties": True,
@@ -37,7 +37,7 @@ class Models:
         },
         "User": {
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "comment": ""},
+                "id": {"type": "unsigned int", "key": True},
                 "username": {"type": "str", "default": "'-'"},
                 "password": {"type": "str", "default": "'-'"},
             },

@@ -148,51 +148,51 @@ class Database:
             except mysql.connector.errors.ProgrammingError as error:
                 print(error.msg)
 
-        for model_name in models:
-            for relation in models[model_name]['relations']:
-                try:
-                    type = relation['type']
-                    if type == "hasOne":
-                        print("hasOne")
-                    elif type == "belongsTo":
-                        model = relation['model']
-                        fn = str.format(Commands.sqls["table.add.fields"], table_name=engine.plural(str.lower(model_name)),
-                                        fields=str.lower(model) + " UNSIGNED INT NOT NULL DEFAULT 0")
-                        self.connection.cursor.execute(fn)
-                        print("belongsTo")
-
-                    elif type == "hasMany":
-
-                        # fn = str.format(Commands.sqls["table.add.fields"], table_name=str(model), fields=",".join(model_name))
-                        # self.connection.cursor.execute(fn)
-                        print("hasMany")
-
-                    elif type == "belongsToMany":
-                        if "model" in relation:
-                            model = relation['model']
-                            if Table.search(self.connection, str.format("{0}_{1}", model_name, model)) == False and Table.search(self.connection,
-                                                                                                                                 str.format("{0}_{1}", model, model_name) == False):
-                                if "template" not in relation:
-                                    flds = "id UNSIGNED INT PRIMARY KEY NOT NULL AUTO_INCREMENT"
-                                    flds += "," + str.lower(model_name) + " UNSIGNED INT NOT NULL"
-                                    flds += "," + str.lower(model) + " UNSIGNED INT NOT NULL"
-                                    fn = str.format(Commands.sqls["table.create"], table_name=str.format("{0}_{1}", str.lower(model_name), str.lower(model)), fields=flds)
-                                    self.connection.cursor.execute(fn)
-                                else:
-                                    template = relation['template']
-
-                                print("belongsToMany")
-
-                        elif "template" in relation:
-                            template = relation['template']
-                            fn = str.format(Commands.sqls["table.create"], table_name=engine.plural(str.lower(model_name)),
-                                            fields=str.lower(model) + " UNSIGNED INT NOT NULL DEFAULT 0")
-                            self.connection.cursor.execute(fn)
-                            print("belongsToMany")
-                except:
-                    print("error")
-
-            self.connection.close()
+        # for model_name in models:
+        #     for relation in models[model_name]['relations']:
+        #         try:
+        #             type = relation['type']
+        #             if type == "hasOne":
+        #                 print("hasOne")
+        #             elif type == "belongsTo":
+        #                 model = relation['model']
+        #                 fn = str.format(Commands.sqls["table.add.fields"], table_name=engine.plural(str.lower(model_name)),
+        #                                 fields=str.lower(model) + " UNSIGNED INT NOT NULL DEFAULT 0")
+        #                 self.connection.cursor.execute(fn)
+        #                 print("belongsTo")
+        #
+        #             elif type == "hasMany":
+        #
+        #                 # fn = str.format(Commands.sqls["table.add.fields"], table_name=str(model), fields=",".join(model_name))
+        #                 # self.connection.cursor.execute(fn)
+        #                 print("hasMany")
+        #
+        #             elif type == "belongsToMany":
+        #                 if "model" in relation:
+        #                     model = relation['model']
+        #                     if Table.search(self.connection, str.format("{0}_{1}", model_name, model)) == False and Table.search(self.connection,
+        #                                                                                                                          str.format("{0}_{1}", model, model_name) == False):
+        #                         if "template" not in relation:
+        #                             flds = "id UNSIGNED INT PRIMARY KEY NOT NULL AUTO_INCREMENT"
+        #                             flds += "," + str.lower(model_name) + " UNSIGNED INT NOT NULL"
+        #                             flds += "," + str.lower(model) + " UNSIGNED INT NOT NULL"
+        #                             fn = str.format(Commands.sqls["table.create"], table_name=str.format("{0}_{1}", str.lower(model_name), str.lower(model)), fields=flds)
+        #                             self.connection.cursor.execute(fn)
+        #                         else:
+        #                             template = relation['template']
+        #
+        #                         print("belongsToMany")
+        #
+        #                 elif "template" in relation:
+        #                     template = relation['template']
+        #                     fn = str.format(Commands.sqls["table.create"], table_name=engine.plural(str.lower(model_name)),
+        #                                     fields=str.lower(model) + " UNSIGNED INT NOT NULL DEFAULT 0")
+        #                     self.connection.cursor.execute(fn)
+        #                     print("belongsToMany")
+        #         except:
+        #             print("error")
+        #
+        #     self.connection.close()
 
 
 def update(self, table, item_id, data):

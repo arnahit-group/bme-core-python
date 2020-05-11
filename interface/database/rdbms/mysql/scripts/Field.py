@@ -1,5 +1,6 @@
 from interface.database.rdbms.mysql.scripts.Templates import *
 from base.database_types import *
+import json
 
 
 class Field:
@@ -17,6 +18,7 @@ class Field:
 
     @staticmethod
     def create_field(title, properties):
+        # print(properties)
         s = title + " "
 
         if "type" in properties:
@@ -28,8 +30,27 @@ class Field:
         if "default" in properties:
             s += " DEFAULT " + properties["default"] + " "
 
-        if "comment" in properties and properties["comment"] != "":
-            s += " COMMENT \"" + properties["comment"] + "\" "
+        if "relations" in properties and properties["relations"] != "" and properties["relations"] is not None:
+
+            to_comments = []
+            for relation in properties["relations"]:
+                # to_comment={}
+                # if relation['type'] in relation:
+                #     to_comment['type'] = relation['type']
+
+                to_comment = {'type': relation['type'] if 'type' in relation else None, 'table': relation['table'] if 'table' in relation else None,
+                              'field': relation['field'] if 'field' in relation else None,
+                              'mid_table': relation['mid_table'] if 'mid_table' in relation else None}
+
+                to_comment2 = {}
+                for k in to_comment:
+                    if to_comment[k] is not None:
+                        to_comment2[k] = to_comment[k]
+
+                to_comments.append(to_comment2)
+
+            com = json.dumps(to_comments)
+            s += " COMMENT \'" + com + "\' "
 
         # if "extra" in properties:
         #     if "ai" in properties['extra']:
