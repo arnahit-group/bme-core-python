@@ -23,21 +23,21 @@ class Field:
             s += Field.generate_appropriate_type(properties["type"])
 
         if "key" in properties and properties["key"]:
-            s += " PRIMARY KEY "
+            s += " PRIMARY KEY AUTO_INCREMENT "
 
         if "default" in properties:
             s += " DEFAULT " + properties["default"] + " "
 
-        if "comment" in properties:
+        if "comment" in properties and properties["comment"] != "":
             s += " COMMENT \"" + properties["comment"] + "\" "
 
-        if "extra" in properties:
-            if "ai" in properties['extra']:
-                s += " AUTO_INCREMENT "
-
-            if "not null" in properties['extra']:
-                s += " NOT NULL "
-
+        # if "extra" in properties:
+        #     if "ai" in properties['extra']:
+        #         s += " AUTO_INCREMENT "
+        #
+        #     if "not null" in properties['extra']:
+        #         s += " NOT NULL "
+        s += " NOT NULL "
         return s
 
     @staticmethod

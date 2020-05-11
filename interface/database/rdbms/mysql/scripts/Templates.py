@@ -11,13 +11,13 @@ class Templates:
             "fields": [
                 "`id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
                 "`title` varchar(255) NOT NULL",
-                "`values` varchar(2000) NOT NULL DEFAULT ''",
+                "`values` varchar(2000) NOT NULL DEFAULT '-'",
                 "`default_value` varchar(255) NOT NULL",
                 "`input_type` varchar(255) NOT NULL",
-                "`actions` varchar(2000) NOT NULL DEFAULT ''",
-                "`locales` varchar(4000) NOT NULL DEFAULT ''",
-                "`validation_rules` varchar(2000) NOT NULL DEFAULT ''",
-                "`fillation_rules` varchar(2000) NOT NULL DEFAULT 'direct'",
+                "`actions` varchar(2000) NOT NULL DEFAULT '-'",
+                "`locales` varchar(4000) NOT NULL DEFAULT '-'",
+                "`validation_rules` varchar(2000) NOT NULL DEFAULT '-'",
+                "`filling_rules` varchar(2000) NOT NULL DEFAULT 'direct'",
                 "`parent` int(10) UNSIGNED NOT NULL DEFAULT 0"
             ]
         },
@@ -26,13 +26,13 @@ class Templates:
             "fields": [
                 "`id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
                 "`title` varchar(255) NOT NULL",
-                "`values` varchar(2000) NOT NULL DEFAULT ''",
+                "`values` varchar(2000) NOT NULL DEFAULT '-'",
                 "`default_value` varchar(255) NOT NULL",
                 "`input_type` varchar(255) NOT NULL",
-                "`actions` varchar(2000) NOT NULL DEFAULT NULL",
-                "`locales` varchar(4000) NOT NULL DEFAULT ''",
-                "`validation_rules` varchar(2000) NOT NULL DEFAULT ''",
-                "`fillation_rules` varchar(2000) NOT NULL DEFAULT 'direct'",
+                "`actions` varchar(2000) NOT NULL DEFAULT '-'",
+                "`locales` varchar(4000) NOT NULL DEFAULT '-'",
+                "`validation_rules` varchar(2000) NOT NULL DEFAULT '-'",
+                "`filling_rules` varchar(2000) NOT NULL DEFAULT 'direct'",
                 "`parent` int(10) UNSIGNED NOT NULL DEFAULT 0"
             ]
         },

@@ -115,29 +115,31 @@ class Database:
         engine = inflect.engine()
         models = Models.base.copy()
         for model_name in models:
+            print("--------------" + model_name + "--------------------")
             try:
-                fn = str.format(Commands.sqls["table.create"], table_name=str(engine.plural(model_name).lower()), fields=Field.create_fields_for_install(models[model_name]['fields']))
+                fn = str.format(Commands.sqls["table.create"], table_name=str(engine.plural(model_name).lower()),
+                                fields=Field.create_fields_for_install(models[model_name]['fields']))
                 print(fn)
                 self.connection.cursor().execute(fn)
 
                 if models[model_name]['has_properties']:
                     template = Templates.tables['properties']
                     # print(engine.plural(model_name,1))
-                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name,1).lower()),
+                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name, 1).lower()),
                                     fields=",".join(template["fields"]))
                     self.connection.cursor().execute(fn)
                     template = Templates.tables['assigned_properties']
-                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name,1).lower()),
+                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name, 1).lower()),
                                     fields=",".join(template["fields"]))
                     self.connection.cursor().execute(fn)
 
                 if models[model_name]['has_settings']:
                     template = Templates.tables['settings']
-                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name,1).lower()),
+                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name, 1).lower()),
                                     fields=",".join(template["fields"]))
                     self.connection.cursor().execute(fn)
                     template = Templates.tables['assigned_settings']
-                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name,1).lower()),
+                    fn = str.format(Commands.sqls["table.create"], table_name=str.format(template["title"], engine.plural(model_name, 1).lower()),
                                     fields=",".join(template["fields"]))
                     self.connection.cursor().execute(fn)
 

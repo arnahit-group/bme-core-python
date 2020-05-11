@@ -8,38 +8,38 @@ class Models:
     base = {
         "Hotel": {
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "extra": ["ai", "not null"], "comment": ""},
-                "title": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"}
+                "id": {"type": "unsigned int", "key": True, "comment": ""},
+                "title": {"type": "str", "default": "'-'"}
             },
             "has_properties": True,
             "has_settings": True,
         },
         "Room": {
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "extra": ["ai", "not null"], "comment": ""},
-                "title": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "description": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "content": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "floor": {"type": "int", "key": False, "extra": ["not null"], "default": "1"},
-                "image": {"type": "int", "key": False, "extra": ["not null"], "default": "0", "comment": "{'relation':'hasOne','table':'images'}"},
-                "images": {"type": "str", "key": False, "extra": ["null"], "default": "NULL",
+                "id": {"type": "unsigned int", "key": True, "comment": ""},
+                "title": {"type": "str", "default": "'-'"},
+                "description": {"type": "str", "default": "'-'"},
+                "content": {"type": "str", "default": "'-'"},
+                "floor": {"type": "int", "default": "1"},
+                "image": {"type": "int", "default": "0", "comment": "{'relation':'hasOne','table':'images'}"},
+                "images": {"type": "str", "extra": ["null"], "default": "'-'",
                            "comment": "{'relation':'belongsToMany','table':'images','middle_table':'room_image'}"},
-                "video": {"type": "int", "key": False, "extra": ["not null"], "default": "0", "comment": "{'relation':'hasOne','table':'videos'}"},
-                "flash": {"type": "int", "key": False, "extra": ["not null"], "default": "0", "comment": "{'relation':'hasOne','table':'flashes'}"},
-                "locked_days": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "inactive_days": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "price": {"type": "str", "key": False, "extra": ["null"], "default": "NULL", "comment": "{'relation':'hasMany','table':'room_prices','field':'room'}"},
-                "hotel": {"type": "int", "key": False, "extra": ["not null"], "default": "0", "comment": "{'relation':'belongsTo', 'table':'hotels'}"},
-                "available": {"type": "int", "key": False, "extra": ["not null"], "default": "1"}
+                "video": {"type": "int", "default": "0", "comment": "{'relation':'hasOne','table':'videos'}"},
+                "flash": {"type": "int", "default": "0", "comment": "{'relation':'hasOne','table':'flashes'}"},
+                "locked_days": {"type": "str", "default": "'-'"},
+                "inactive_days": {"type": "str", "default": "'-'"},
+                "price": {"type": "str", "extra": ["null"], "default": "'-'", "comment": "{'relation':'hasMany','table':'room_prices','field':'room'}"},
+                "hotel": {"type": "int", "default": "0", "comment": "{'relation':'belongsTo', 'table':'hotels'}"},
+                "available": {"type": "int", "default": "1"}
             },
             "has_properties": True,
             "has_settings": True,
         },
         "User": {
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "extra": ["ai", "not null"], "comment": ""},
-                "username": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "password": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
+                "id": {"type": "unsigned int", "key": True, "comment": ""},
+                "username": {"type": "str", "default": "'-'"},
+                "password": {"type": "str", "default": "'-'"},
             },
             "has_properties": True,
             "has_settings": True
@@ -50,57 +50,57 @@ class Models:
         "properties": {
             "title": "{0}_properties",
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "extra": ["ai", "not null"]},
-                "title": {"type": "str", "key": False, "extra": ["not null"], "default": "''"},
-                "values": {"type": "str", "key": False, "extra": ["not null"], "default": "''"},
-                "default_value": {"type": "str", "key": False, "extra": ["not null"], "default": "''"},
-                "input_type": {"type": "str", "key": False, "extra": ["not null"], "default": "''"},
-                "actions": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "locales": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "validation_rules": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "filling_rules": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "parent": {"type": "unsigned int", "key": False, "extra": ["not null"], "default": "0"},
+                "id": {"type": "unsigned int", "key": True, "extra": ["not null"]},
+                "title": {"type": "str", "default": "''"},
+                "values": {"type": "str", "default": "''"},
+                "default_value": {"type": "str", "default": "''"},
+                "input_type": {"type": "str", "default": "''"},
+                "actions": {"type": "str", "default": "'-'"},
+                "locales": {"type": "str", "default": "'-'"},
+                "validation_rules": {"type": "str", "default": "'-'"},
+                "filling_rules": {"type": "str", "default": "'-'"},
+                "parent": {"type": "unsigned int", "default": "0"},
             },
         },
         "settings": {
             "title": "{0}_settings",
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "extra": ["ai", "not null"]},
-                "title": {"type": "str", "key": False, "extra": ["not null"], "default": "''"},
-                "values": {"type": "str", "key": False, "extra": ["not null"], "default": "''"},
-                "default_value": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "input_type": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "actions": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "locales": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "validation_rules": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "filling_rules": {"type": "str", "key": False, "extra": ["not null"], "default": "'-'"},
-                "parent": {"type": "unsigned int", "key": False, "extra": ["not null"], "default": "0"},
+                "id": {"type": "unsigned int", "key": True, "extra": ["not null"]},
+                "title": {"type": "str", "default": "''"},
+                "values": {"type": "str", "default": "''"},
+                "default_value": {"type": "str", "default": "'-'"},
+                "input_type": {"type": "str", "default": "'-'"},
+                "actions": {"type": "str", "default": "'-'"},
+                "locales": {"type": "str", "default": "'-'"},
+                "validation_rules": {"type": "str", "default": "'-'"},
+                "filling_rules": {"type": "str", "default": "'-'"},
+                "parent": {"type": "unsigned int", "default": "0"},
             },
         },
         "assigned_properties": {
             "title": "{0}_assigned_properties",
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "extra": ["ai", "not null"]},
-                "item": {"type": "unsigned int", "key": False, "extra": ["not null"]},
-                "property": {"type": "unsigned int", "key": False, "extra": ["not null"]},
-                "values": {"type": "str", "key": False, "extra": ["not null"], "default": "''"}
+                "id": {"type": "unsigned int", "key": True, "extra": ["not null"]},
+                "item": {"type": "unsigned int", "extra": ["not null"]},
+                "property": {"type": "unsigned int", "extra": ["not null"]},
+                "values": {"type": "str", "default": "''"}
             }
         },
         "assigned_settings": {
             "title": "{0}_assigned_settings",
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "extra": ["ai", "not null"]},
-                "item": {"type": "unsigned int", "key": False, "extra": ["not null"]},
-                "property": {"type": "unsigned int", "key": False, "extra": ["not null"]},
-                "values": {"type": "str", "key": False, "extra": ["not null"], "default": "''"}
+                "id": {"type": "unsigned int", "key": True, "extra": ["not null"]},
+                "item": {"type": "unsigned int", "extra": ["not null"]},
+                "property": {"type": "unsigned int", "extra": ["not null"]},
+                "values": {"type": "str", "default": "''"}
             }
         },
         "general_relation": {
             "title": "{0}_{1}",
             "fields": {
-                "id": {"type": "unsigned int", "key": True, "extra": ["ai", "not null"]},
-                "{0}": {"type": "unsigned int", "key": False, "extra": ["not null"]},
-                "{1}": {"type": "unsigned int", "key": False, "extra": ["not null"]},
+                "id": {"type": "unsigned int", "key": True, "extra": ["not null"]},
+                "{0}": {"type": "unsigned int", "extra": ["not null"]},
+                "{1}": {"type": "unsigned int", "extra": ["not null"]},
             }
         }
 
