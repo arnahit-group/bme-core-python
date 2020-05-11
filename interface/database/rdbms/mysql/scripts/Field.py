@@ -43,7 +43,6 @@ class Field:
                               'field': relation['field'] if 'field' in relation else None,
                               'middle_table': relation['middle_table'] if 'middle_table' in relation else None}
 
-
                 if to_comment['middle_table'] is not None:
                     md_tb_nm = to_comment['middle_table']
                     flds = str(md_tb_nm).split('_')
